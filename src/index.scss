@@ -1,0 +1,112 @@
+body {
+  background-color: #082b47;
+}
+
+.calculator {
+  width: 360px;
+  margin: 0 auto;
+  padding-top: 50px;
+
+  &__keypad {
+    display: flex;
+    border-top: 1px solid #09768d;
+  }
+
+  &__keys {
+    width: 270px;
+  }
+  &__key {
+    width: 90px;
+    height: 90px;
+    background-color: #0e3759;
+    color: #fff;
+    font-size: 20px;
+    border: none;
+    border-right: 1px solid #1a3d71;
+    border-top: 1px solid #1a3d71;
+
+    &:focus {
+      outline: none;
+    }
+
+    &:hover {
+      background-color: #0d4a68;
+    }
+  }
+
+  &__display {
+    position: relative;
+    height: 100px;
+    padding: 0 20px 10px;
+    display: flex;
+    align-items: flex-end;
+    font-size: 28px;
+    background: #08889b;
+    background: -webkit-linear-gradient(top, #0e3759, #08889b);
+    background: -moz-linear-gradient(top, #0e3759, #08889b);
+    background: -ms-linear-gradient(top, #0e3759, #08889b);
+    background: -o-linear-gradient(top, #0e3759, #08889b);
+    background: linear-gradient(to top, #0e3759, #08889b);
+  }
+
+  &__value {
+    position: absolute;
+    right: 15px;
+    transform-origin: right;
+    display: inline-block;
+    font-size: 40px;
+    font-family: Arial, Helvetica, sans-serif;
+    color: #fff;
+  }
+}
+
+.keys {
+  &_number {
+    display: flex;
+    flex-wrap: wrap-reverse;
+  }
+
+  &_operator {
+    width: 90px;
+    display: flex;
+    flex-direction: column;
+
+    .calculator__key {
+      color: #00fefe;
+      border-right: none;
+      font-size: 22px;
+    }
+  }
+
+  &_function {
+    .calculator__key {
+      color: #00fefe;
+    }
+  }
+}
+
+.exange {
+  &__input {
+    width: 100%;
+    margin-top: 10px;
+    padding-bottom: 5px;
+    font-size: 16px;
+    color: #fff;
+    border: none;
+    border-bottom: 1px solid #09768d;
+    background-color: transparent;
+    outline: none;
+  }
+
+  &__label {
+    margin: 20px 0;
+    display: block;
+    color: #fff;
+    font-family: Arial, Helvetica, sans-serif;
+  }
+}
+
+.exange__input[type="number"]::-webkit-inner-spin-button,
+.exange__input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+}
