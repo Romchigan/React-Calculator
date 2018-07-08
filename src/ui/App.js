@@ -120,6 +120,11 @@ class App extends Component {
         displayNum: "Please don't divide by zero."
       })
     }
+
+    if (operator == nextOperator) {
+      console.log('simple operator');
+
+    }
   }
 
   exangeUsd = (event) => {
@@ -128,10 +133,17 @@ class App extends Component {
     let value = event.target.value;
     let exchangeAmount = value * currencyBuy;
 
-    this.setState({
-      exangeValueUsd: value,
-      exangeValueUah: exchangeAmount.toFixed(2)
-    })
+    if (value === '') {
+      this.setState({
+        exangeValueUsd: '',
+        exangeValueUah: ''
+      })
+    } else {
+      this.setState({
+        exangeValueUsd: value,
+        exangeValueUah: exchangeAmount.toFixed(2)
+      })
+    }
   }
 
   exangeUah = (event) => {
@@ -140,10 +152,17 @@ class App extends Component {
     let value = event.target.value;
     let exchangeAmount = value / currencyBuy
 
-    this.setState({
-      exangeValueUah: value,
-      exangeValueUsd: exchangeAmount.toFixed(2)
-    })
+    if (value === '') {
+      this.setState({
+        exangeValueUah: '',
+        exangeValueUsd: ''
+      })
+    } else {
+      this.setState({
+        exangeValueUah: value,
+        exangeValueUsd: exchangeAmount.toFixed(2)
+      })
+    }
   }
 
   render() {
