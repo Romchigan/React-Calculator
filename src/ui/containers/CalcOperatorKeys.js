@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import CalcButton from '../components/CalcButton'
+import PropTypes from "prop-types";
+import CalcButton from '../components/CalcButton';
 
 class CalcOperatorKeys extends Component {
   render() {
@@ -16,5 +17,9 @@ class CalcOperatorKeys extends Component {
     )
   }
 }
+
+CalcOperatorKeys.propTypes = {
+  performOperation: PropTypes.func,
+};
 
 export default CalcOperatorKeys;

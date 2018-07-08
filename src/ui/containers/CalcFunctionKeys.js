@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import CalcButton from '../components/CalcButton'
+import PropTypes from "prop-types";
+import CalcButton from '../components/CalcButton';
 
 class CalcFunctionKeys extends Component {
   render() {
@@ -14,5 +15,10 @@ class CalcFunctionKeys extends Component {
     )
   }
 }
+
+CalcFunctionKeys.propTypes = {
+  displayClear: PropTypes.func,
+  inputPercent: PropTypes.func,
+};
 
 export default CalcFunctionKeys;

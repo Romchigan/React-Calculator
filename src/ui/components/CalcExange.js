@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from "prop-types";
 
 class CalcExange extends Component {
   render() {
@@ -19,5 +20,12 @@ class CalcExange extends Component {
     )
   }
 }
+
+CalcExange.propTypes = {
+  exangeValueUsd: PropTypes.string,
+  exangeValueUah: PropTypes.string,
+  exangeUsd: PropTypes.func,
+  exangeUah: PropTypes.func,
+};
 
 export default CalcExange;

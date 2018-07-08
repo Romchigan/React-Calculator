@@ -113,17 +113,12 @@ class App extends Component {
         value: calculatedNumber,
         displayNum: calculatedNumber
       })
-    }
 
-    if (operator == '/' && nextNumber == '0') {
-      this.setState({
-        displayNum: "Please don't divide by zero."
-      })
-    }
-
-    if (operator == nextOperator) {
-      console.log('simple operator');
-
+      if (isNaN(calculatedNumber) || calculatedNumber === Infinity) {
+        this.setState({
+          displayNum: "0"
+        })
+      }
     }
   }
 

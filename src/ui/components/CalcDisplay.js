@@ -38,7 +38,8 @@ class CalcDisplay extends Component {
         <div
           className="calculator__value"
           style={{ transform: `scale(${scale},${scale})` }}
-          ref={node => this.node = node} > {this.props.children} </div>
+          ref={node => this.node = node} >
+          {this.props.children} </div>
       </div>
     )
   }
