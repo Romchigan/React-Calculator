@@ -150,15 +150,17 @@ class App extends Component {
     const { displayNum, exangeValueUsd, exangeValueUah, exangeUah } = this.state;
 
     return (
-      <div className="calculator">
-        <CalcDisplay>{displayNum}</CalcDisplay>
+      <div className="calculator-container">
+        <div className="calculator">
+          <CalcDisplay>{displayNum}</CalcDisplay>
 
-        <div className="calculator__keypad keys">
-          <div className="calculator__keys">
-            <CalcFunctionKeys displayClear={this.displayClear} inputPercent={this.inputPercent} />
-            <CalcNumberKeys inputNumeric={this.inputNumeric} inputDot={this.inputDot} />
+          <div className="calculator__keypad keys">
+            <div className="calculator__keys">
+              <CalcFunctionKeys displayClear={this.displayClear} inputPercent={this.inputPercent} />
+              <CalcNumberKeys inputNumeric={this.inputNumeric} inputDot={this.inputDot} />
+            </div>
+            <CalcOperatorKeys performOperation={this.performOperation} />
           </div>
-          <CalcOperatorKeys performOperation={this.performOperation} />
         </div>
 
         <CalcExange
@@ -168,7 +170,6 @@ class App extends Component {
           exangeUah={this.exangeUah}
         />
       </div>
-
     );
   }
 }

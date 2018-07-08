@@ -1,11 +1,20 @@
 body {
+  margin: 0;
+  padding: 0;
   background-color: #082b47;
 }
 
 .calculator {
   width: 360px;
   margin: 0 auto;
-  padding-top: 50px;
+
+  &-container {
+    width: 680px;
+    margin: 0 auto;
+    padding-top: 50px;
+    display: flex;
+    justify-content: space-around;
+  }
 
   &__keypad {
     display: flex;
@@ -57,6 +66,12 @@ body {
     font-size: 40px;
     font-family: Arial, Helvetica, sans-serif;
     color: #fff;
+  }
+
+  &__exange {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
   }
 }
 
