@@ -8,7 +8,7 @@ class CalcOperatorKeys extends Component {
 
     return (
       <div className="keys_operator" >
-        <CalcButton onClick={() => performOperation('/')}>÷</CalcButton>
+        <CalcButton onClick={() => performOperation('/')}>/</CalcButton>
         <CalcButton onClick={() => performOperation('*')}>*</CalcButton>
         <CalcButton onClick={() => performOperation('-')}>-</CalcButton>
         <CalcButton onClick={() => performOperation('+')}>+</CalcButton>
