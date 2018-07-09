@@ -22,7 +22,7 @@ module.exports = {
         test: /\.(sa|sc|c)ss$/,
         use: ExtractTextPlugin.extract({
           fallback: "style-loader",
-          use: [ { loader: 'css-loader', options: { minimize: true }}, 'sass-loader' ]
+          use: [{ loader: 'css-loader', options: { minimize: true } }, 'sass-loader']
         })
       }
     ]
@@ -32,7 +32,6 @@ module.exports = {
   },
   output: {
     path: path.resolve(__dirname, 'build'),
-    publicPath: '/build',
     filename: 'main.js'
   },
   optimization: {
@@ -41,10 +40,10 @@ module.exports = {
     ]
   },
   plugins: [
-    new HtmlWebpackPlugin({ 
-      template: './src/index.html', 
-      filename: './index.html' 
+    new HtmlWebpackPlugin({
+      template: './src/index.html',
+      filename: './index.html'
     }),
-    new ExtractTextPlugin('/style/main.css')
+    new ExtractTextPlugin('style/main.css')
   ]
 };
