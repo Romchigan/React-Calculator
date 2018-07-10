@@ -46,9 +46,11 @@ body {
   &__display {
     position: relative;
     height: 100px;
-    padding: 0 20px 10px;
+    padding: 10px 20px;
     display: flex;
+    flex-direction: column;
     align-items: flex-end;
+    justify-content: space-between;
     font-size: 28px;
     background: #08889b;
     background: -webkit-linear-gradient(top, #0e3759, #08889b);
@@ -59,8 +61,6 @@ body {
   }
 
   &__value {
-    position: absolute;
-    right: 15px;
     transform-origin: right;
     display: inline-block;
     font-size: 40px;
@@ -72,6 +72,13 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: center;
+    transform-origin: right;
+  }
+
+  &__expression {
+    font-family: Arial, Helvetica, sans-serif;
+    color: #fff;
+    font-size: 20px;
   }
 }
 

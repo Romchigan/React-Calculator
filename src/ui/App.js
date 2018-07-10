@@ -13,6 +13,7 @@ const exchangeCurrency = 'https://api.privatbank.ua/p24api/pubinfo?json&exchange
 class App extends Component {
   state = {
     displayNum: "0",
+    fullExpression: null,
     presenceOperand: false,
     operator: null,
     counted: false,
@@ -41,6 +42,7 @@ class App extends Component {
     if (counted) {
       this.setState({
         displayNum: String(number),
+        fullExpression: null,
         counted: false,
         presenceOperand: false
       })
@@ -71,6 +73,7 @@ class App extends Component {
   displayClear = () => {
     this.setState({
       displayNum: "0",
+      fullExpression: null,
       presenceOperand: false,
       operator: null,
       counted: false
@@ -104,13 +107,14 @@ class App extends Component {
   }
 
   performOperation = (nextOperator) => {
-    const { displayNum, presenceOperand } = this.state;
+    const { displayNum, presenceOperand, fullExpression } = this.state;
 
     if (nextOperator === '=') {
       const calculatedNumber = parseFloat(eval(displayNum).toFixed(10));
 
       this.setState({
         displayNum: calculatedNumber,
+        fullExpression: displayNum + ' =',
         counted: true,
         presenceOperand: false
       })
@@ -182,12 +186,12 @@ class App extends Component {
   }
 
   render() {
-    const { displayNum, counted, exangeValueUsd, exangeValueUah } = this.state;
+    const { displayNum, fullExpression, counted, exangeValueUsd, exangeValueUah } = this.state;
 
     return (
       <div className="calculator-container">
         <div className="calculator">
-          <CalcDisplay>{displayNum}</CalcDisplay>
+          <CalcDisplay fullExpression={fullExpression}>{displayNum}</CalcDisplay>
 
           <div className="calculator__keypad keys">
             <div className="calculator__keys">

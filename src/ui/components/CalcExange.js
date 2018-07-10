@@ -4,12 +4,14 @@ import PropTypes from "prop-types";
 class CalcExange extends Component {
   render() {
     const { exangeValueUsd, exangeValueUah, exangeUsd, exangeUah } = this.props;
+    const valid = /[0-9]/;
+    const input = document.getElementsByName('exange__input');
 
     return (
       <div className="calculator__exange exange">
         <label className="exange__label">
           USD
-        <input type="number" className="exange__input" value={exangeValueUsd} onChange={exangeUsd} />
+        <input type="number" name="exange__input" className="exange__input" value={exangeValueUsd} onChange={exangeUsd} />
         </label>
 
         <label className="exange__label">

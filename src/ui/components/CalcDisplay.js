@@ -14,7 +14,7 @@ class CalcDisplay extends Component {
 
     const availableWidth = parentNode.offsetWidth - displayIndentWidth;
     const actualWidth = node.offsetWidth;
-    const actualScale = availableWidth / actualWidth;
+    const actualScale = availableWidth / actualWidth;;
 
     if (scale === actualScale)
       return
@@ -33,8 +33,12 @@ class CalcDisplay extends Component {
 
   render() {
     const { scale } = this.state;
+    const { fullExpression } = this.props;
     return (
       <div className="calculator__display">
+        <div className="calculator__expression" style={{ transform: `scale(${scale},${scale})` }}>
+          {fullExpression}
+        </div>
         <div
           className="calculator__value"
           style={{ transform: `scale(${scale},${scale})` }}
