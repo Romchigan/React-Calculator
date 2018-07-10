@@ -8,7 +8,7 @@ import CalcOperatorKeys from './containers/CalcOperatorKeys';
 import CalcDisplay from './components/CalcDisplay';
 import CalcExange from './components/CalcExange';
 
-const currency = 'https://api.privatbank.ua/p24api/pubinfo?json&exchange&coursid=5'
+const exchangeCurrency = 'https://api.privatbank.ua/p24api/pubinfo?json&exchange&coursid=5'
 const calcOperations = {
   '/': (prevNumber, nextNumber) => prevNumber / nextNumber,
   '*': (prevNumber, nextNumber) => prevNumber * nextNumber,
@@ -23,13 +23,14 @@ class App extends Component {
     displayNum: "0",
     presenceOperand: false,
     operator: null,
+    counted: false,
     currencyBuy: '',
     exangeValueUsd: '',
     exangeValueUah: ''
   }
 
   componentDidMount() {
-    axios.get('https://api.privatbank.ua/p24api/pubinfo?json&exchange&coursid=5')
+    axios.get(exchangeCurrency)
       .then(res => {
         const cours = res.data;
 
@@ -43,16 +44,18 @@ class App extends Component {
   }
 
   inputNumeric = (number) => {
-    const { displayNum, presenceOperand } = this.state;
+    const { displayNum, counted } = this.state;
 
-    if (presenceOperand) {
+    if (counted) {
       this.setState({
         displayNum: String(number),
+        counted: false,
         presenceOperand: false
       })
     } else {
       this.setState({
-        displayNum: displayNum === '0' ? String(number) : displayNum + number
+        displayNum: displayNum === '0' ? String(number) : displayNum + number,
+        presenceOperand: false
       })
     }
   }
@@ -78,8 +81,23 @@ class App extends Component {
       value: null,
       displayNum: "0",
       presenceOperand: false,
-      operator: null
+      operator: null,
+      counted: false
     })
+  }
+
+  displayClearLast = () => {
+    const { displayNum } = this.state;
+
+    if (displayNum.length == 1) {
+      this.setState({
+        displayNum: "0"
+      })
+    } else {
+      this.setState({
+        displayNum: displayNum.slice(0, -1)
+      })
+    }
   }
 
   inputPercent = () => {
@@ -87,36 +105,46 @@ class App extends Component {
     const numericValue = parseFloat(displayNum);
 
     this.setState({
-      displayNum: String(numericValue / 100)
+      displayNum: String(numericValue / 100),
+      counted: true
     })
   }
 
   performOperation = (nextOperator) => {
-    const { displayNum, operator, value } = this.state;
+    const { displayNum, presenceOperand } = this.state;
 
-    const nextNumber = parseFloat(displayNum);
-
-    this.setState({
-      presenceOperand: true,
-      operator: nextOperator
-    })
-
-    if (value == null) {
-      this.setState({
-        value: nextNumber
-      })
-    } else if (operator) {
-      const prevNumber = value || 0;
-      const calculatedNumber = calcOperations[operator](prevNumber, nextNumber);
+    if (nextOperator === '=') {
+      const calculatedNumber = parseFloat(eval(displayNum).toFixed(10));
 
       this.setState({
-        value: calculatedNumber,
-        displayNum: calculatedNumber
+        displayNum: calculatedNumber,
+        counted: true,
+        presenceOperand: false
       })
 
-      if (isNaN(calculatedNumber) || calculatedNumber === Infinity) {
+      if (isNaN(calculatedNumber)) {
         this.setState({
-          displayNum: "0"
+          displayNum: "error"
+        })
+      } else if (calculatedNumber === Infinity) {
+        this.setState({
+          displayNum: 'Infinity'
+        })
+      }
+
+    } else {
+      if (!presenceOperand) {
+        this.setState({
+          displayNum: displayNum + nextOperator,
+          counted: false,
+          presenceOperand: true
+        })
+
+      } else {
+        this.setState({
+          displayNum: displayNum.slice(0, -1) + nextOperator,
+          counted: false,
+          presenceOperand: true
         })
       }
     }
@@ -161,7 +189,7 @@ class App extends Component {
   }
 
   render() {
-    const { displayNum, exangeValueUsd, exangeValueUah, exangeUah } = this.state;
+    const { displayNum, counted, exangeValueUsd, exangeValueUah } = this.state;
 
     return (
       <div className="calculator-container">
@@ -170,7 +198,7 @@ class App extends Component {
 
           <div className="calculator__keypad keys">
             <div className="calculator__keys">
-              <CalcFunctionKeys displayClear={this.displayClear} inputPercent={this.inputPercent} />
+              <CalcFunctionKeys displayClear={counted ? this.displayClear : this.displayClearLast} inputPercent={this.inputPercent} counted={counted} />
               <CalcNumberKeys inputNumeric={this.inputNumeric} inputDot={this.inputDot} />
             </div>
             <CalcOperatorKeys performOperation={this.performOperation} />
