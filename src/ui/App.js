@@ -9,17 +9,9 @@ import CalcDisplay from './components/CalcDisplay';
 import CalcExange from './components/CalcExange';
 
 const exchangeCurrency = 'https://api.privatbank.ua/p24api/pubinfo?json&exchange&coursid=5'
-const calcOperations = {
-  '/': (prevNumber, nextNumber) => prevNumber / nextNumber,
-  '*': (prevNumber, nextNumber) => prevNumber * nextNumber,
-  '-': (prevNumber, nextNumber) => prevNumber - nextNumber,
-  '+': (prevNumber, nextNumber) => prevNumber + nextNumber,
-  '=': (prevNumber, nextNumber) => nextNumber
-};
 
 class App extends Component {
   state = {
-    value: null,
     displayNum: "0",
     presenceOperand: false,
     operator: null,
@@ -78,7 +70,6 @@ class App extends Component {
 
   displayClear = () => {
     this.setState({
-      value: null,
       displayNum: "0",
       presenceOperand: false,
       operator: null,
@@ -104,10 +95,12 @@ class App extends Component {
     const { displayNum } = this.state;
     const numericValue = parseFloat(displayNum);
 
-    this.setState({
-      displayNum: String(numericValue / 100),
-      counted: true
-    })
+    if (displayNum !== '0') {
+      this.setState({
+        displayNum: String(numericValue / 100),
+        counted: true
+      })
+    }
   }
 
   performOperation = (nextOperator) => {
