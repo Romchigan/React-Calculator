@@ -8,7 +8,8 @@ import CalcOperatorKeys from './containers/CalcOperatorKeys';
 import CalcDisplay from './components/CalcDisplay';
 import CalcExange from './components/CalcExange';
 
-const exchangeCurrency = 'https://api.privatbank.ua/p24api/pubinfo?json&exchange&coursid=5'
+const exchangeCurrency = 'https://api.privatbank.ua/p24api/pubinfo?json&exchange&coursid=5';
+const history = [];
 
 class App extends Component {
   state = {
@@ -106,11 +107,21 @@ class App extends Component {
     }
   }
 
+  isHistoryExpression = (array, item) => {
+    array.push(item);
+    localStorage.setItem('history', JSON.stringify(array));
+  }
+
   performOperation = (nextOperator) => {
     const { displayNum, presenceOperand, fullExpression } = this.state;
 
     if (nextOperator === '=') {
       const calculatedNumber = parseFloat(eval(displayNum).toFixed(10));
+
+      const elemHistory = {
+        elemHistory: displayNum + ' = ' + calculatedNumber
+      }
+      this.isHistoryExpression(history, elemHistory);
 
       this.setState({
         displayNum: calculatedNumber,
