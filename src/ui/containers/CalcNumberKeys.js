@@ -4,13 +4,13 @@ import CalcButton from '../components/CalcButton';
 
 class CalcNumberKeys extends Component {
   render() {
-    const { inputNumeric, inputDot } = this.props;
+    const { inputNumeric, inputDot, isHistory } = this.props;
 
     return (
       <div className="keys_number" >
         <CalcButton onClick={() => inputNumeric(0)}>0</CalcButton>
         <CalcButton onClick={() => inputDot()}>.</CalcButton>
-        <CalcButton >-></CalcButton>
+        <CalcButton onClick={() => isHistory()}>history</CalcButton>
         <CalcButton onClick={() => inputNumeric(1)}>1</CalcButton>
         <CalcButton onClick={() => inputNumeric(2)}>2</CalcButton>
         <CalcButton onClick={() => inputNumeric(3)}>3</CalcButton>

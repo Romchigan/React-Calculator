@@ -7,6 +7,7 @@ import CalcOperatorKeys from './containers/CalcOperatorKeys';
 
 import CalcDisplay from './components/CalcDisplay';
 import CalcExange from './components/CalcExange';
+import CalcHistory from './components/CalcHistory';
 
 const exchangeCurrency = 'https://api.privatbank.ua/p24api/pubinfo?json&exchange&coursid=5';
 const history = [];
@@ -20,7 +21,8 @@ class App extends Component {
     counted: false,
     currencyBuy: '',
     exangeValueUsd: '',
-    exangeValueUah: ''
+    exangeValueUah: '',
+    showHistory: false
   }
 
   componentDidMount() {
@@ -109,7 +111,7 @@ class App extends Component {
 
   isHistoryExpression = (array, item) => {
     array.push(item);
-    localStorage.setItem('history', JSON.stringify(array));
+    sessionStorage.setItem('history', JSON.stringify(array));
   }
 
   performOperation = (nextOperator) => {
@@ -196,18 +198,35 @@ class App extends Component {
     }
   }
 
+  isHistory = () => {
+    this.setState({
+      showHistory: !this.state.showHistory
+    })
+  }
+
+  clearHistory = () => {
+    sessionStorage.removeItem('history');
+
+    this.setState({
+      showHistory: false
+    })
+  }
+
   render() {
-    const { displayNum, fullExpression, counted, exangeValueUsd, exangeValueUah } = this.state;
+    const { displayNum, fullExpression, counted, exangeValueUsd, exangeValueUah, showHistory } = this.state;
 
     return (
       <div className="calculator-container">
         <div className="calculator">
+
+        {showHistory ? <CalcHistory isHistory={this.isHistory} clearHistory={this.clearHistory} /> : ''}
+
           <CalcDisplay fullExpression={fullExpression}>{displayNum}</CalcDisplay>
 
           <div className="calculator__keypad keys">
             <div className="calculator__keys">
               <CalcFunctionKeys displayClear={counted ? this.displayClear : this.displayClearLast} inputPercent={this.inputPercent} counted={counted} />
-              <CalcNumberKeys inputNumeric={this.inputNumeric} inputDot={this.inputDot} />
+              <CalcNumberKeys inputNumeric={this.inputNumeric} inputDot={this.inputDot} isHistory={this.isHistory}/>
             </div>
             <CalcOperatorKeys performOperation={this.performOperation} />
           </div>
