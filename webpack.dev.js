@@ -41,8 +41,12 @@ module.exports = {
     new webpack.HotModuleReplacementPlugin()
   ],
   devServer: {
-    contentBase: './dist',
-    overlay: true,
+    static: {
+      directory: path.join(__dirname, 'dist'),
+    },
+    client: {
+      overlay: true,
+    },
     hot: true
   }
 };
